@@ -1,0 +1,695 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drop It</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+    
+            body {
+                font-family: 'Quicksand', sans-serif;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            .header {
+                background-color: #3BB77E;
+                padding: 10px 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .logo {
+                display: flex;
+                align-items: center;
+            }
+            .logo img {
+                height: 40px;
+                margin-right: 10px;
+            }
+            .search-bar-container {
+                display: flex;
+                align-items: center;
+                flex: 1;
+                margin: 0 20px;
+            }
+            .search-bar {
+                display: flex;
+                align-items: center;
+                flex: 1;
+            }
+            .search-bar select, .search-bar input {
+                height: 30px;
+                border: none;
+                padding: 0 10px;
+            }
+            .search-bar select {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+                margin-right: -1px; /* Slight overlap to connect input and select */
+            }
+            .search-bar input {
+                flex: 1;
+                border-radius: 5px;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            .search-icon img {
+                height: 25px;
+                cursor: pointer;
+            }
+            .icons {
+                display: flex;
+                align-items: center;
+            }
+            .icons img {
+                height: 25px;
+                margin: 0 10px;
+                cursor: pointer;
+            }
+            .profile-icon img {
+                height: 30px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 150px auto;
+                padding: 20px;
+                background-color: #ffffff;
+                border-radius: 10px;
+                
+            }
+
+            .cart-list {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .cart-item {
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #ddd;
+                padding: 20px 0;
+            }
+
+            .cart-item img {
+                width: 100px;
+                height: 100px;
+                margin-right: 20px;
+                border-radius: 5px;
+                object-fit: cover;
+            }
+
+            .cart-item-details {
+                flex: 1;
+            }
+
+            .cart-item-details h3 {
+                margin: 0;
+                font-size: 1rem;
+                color: #333;
+            }
+
+            .cart-item-details p {
+                margin: 5px 0;
+                color: #888;
+                font-size: 0.9rem;
+            }
+
+            .cart-total {
+                margin-top: 20px;
+                text-align: right;
+            }
+
+            .cart-total h2 {
+                color: #333;
+                font-size: 1.2rem;
+            }
+
+            .checkout-btn {
+                background-color: #4CAF50;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                font-size: 1rem;
+            }
+
+            .checkout-btn:hover {
+                background-color: #45a049;
+            }
+            .background {
+                background-image: url('images/support\ bg.png'); /* Replace with your background image path */
+                background-size: cover;
+                background-position: center;
+                padding: 20px 0; /* Adjust the padding as needed */
+                text-align: center;
+                color: #333;
+            }
+
+            .breadcrumbs {
+                font-size: 14px;
+                color: #666;
+                margin: 0;
+            }
+
+            .title {
+                font-size: 36px;
+                font-weight: bold;
+                margin: 10px 0;
+            }
+            .content {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .faq, .contact-form {
+                padding: 20px;
+                border-radius: 8px;
+                flex: 1;
+                min-width: 300px;
+            }
+
+            .contact-form {
+                background-color: #f9f9f9;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1);
+                height: 100%;
+            }
+
+            .faq h2, .contact-form h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .faq-item {
+                margin-bottom: 10px;
+            }
+
+            .faq-item button {
+                width: 100%;
+                background-color: transparent;
+                border: 1px solid #ddd;
+                padding: 10px;
+                text-align: left;
+                cursor: pointer;
+                outline: none;
+                font-size: 18px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .faq, .contact-form {
+                padding: 20px;
+                border-radius: 8px;
+                flex: 1;
+                min-width: 300px;
+            }
+
+            .contact-form {
+                background-color: #f9f9f9;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1);
+                height: 100%;
+            }
+
+            .faq h2, .contact-form h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .faq-item {
+                margin-bottom: 10px;
+            }
+
+            .faq-item button {
+                width: 100%;
+                background-color: transparent;
+                border: 1px solid #ddd;
+                padding: 10px;
+                text-align: left;
+                cursor: pointer;
+                outline: none;
+                font-size: 18px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .faq-item button i {
+                color: #3BB77E;
+            }
+
+            .faq-item button:hover {
+                background-color: #f1f1f1;
+            }
+
+            .faq-item .answer {
+                padding: 10px;
+                display: none;
+                border-top: none;
+                font-size: 16px;
+                background-color: #228B22; /* Fixed background color for the expanded dropdown */
+                color: #fff; /* Optional: Change text color for better contrast */
+                border: 1px solid #000000; /* Add border with the same color as background */
+                border-radius: 0 0 8px 8px; /* Rounded corners for the bottom of the dropdown */
+            }
+
+            .faq-item.open .answer {
+                display: block;
+            }
+
+            .contact-form form {
+                display: flex;
+                flex-direction: column;
+            }
+            .contact-form label {
+                margin-bottom: 5px;
+            }
+            .contact-form input, .contact-form textarea {
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+            .contact-form button {
+                padding: 10px;
+                background-color: #3BB77E;
+                color: white;
+                border: none;
+                cursor: pointer;
+                border-radius: 4px;
+                font-size: 18px;
+            }
+            .contact-form button:hover {
+                background-color: #45a049;
+            }
+
+            
+            .subscription {
+                background-image: url('images/Image.png'); /* Replace with your background image path */
+                background-size: cover;
+                background-position: center;
+                padding: 100px 0;
+                color: white;
+                text-align: center;
+                border-radius: 50px;
+                margin-top: 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+            }
+
+            .subscription h2 {
+                font-size: 24px;
+                margin: 0;
+                flex: 1;
+            }
+            .subscription form {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 10px;
+                flex: 1;
+            }
+            .subscription input {
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                width: 100%;
+                max-width: 300px;
+            }
+            .subscription button {
+                padding: 10px;
+                background-color: #274C5B;
+                color: white;
+                border: none;
+                cursor: pointer;
+                border-radius: 4px;
+                font-size: 18px;
+            }
+            .subscription button:hover {
+                background-color: #45a049;
+            }
+
+            .feature-container {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }
+            .feature {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                max-width: 300px;
+                text-align: left;
+            }
+            .feature img {
+                width: 50px;
+                height: 50px;
+                padding: 100 px;
+                margin-right: 10px;
+            }
+            .feature h3 {
+                font-size: 20px;
+                margin: 10px 0;
+            }
+            footer {
+                background-color: #ffffff;
+                padding: 40px 20px;
+                border-top: 1px solid #ccc;
+                font-family: quicksand, sans-serif;
+                color: #000;
+                margin-top: auto;
+            }
+            .footer-top {
+                background: rgba(255, 255, 255, 1);
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                max-width: 1200px;
+                margin: 0 auto;
+                gap: 20px;
+                padding-bottom: 20px;
+            }
+            .footer-top div {
+                flex: 1;
+                min-width: 200px;
+            }
+            .footer-top h4 {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+            .footer-top ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            .footer-top li {
+                margin-bottom: 10px;
+                font-size: 0.9em;
+            }
+            .footer-top a {
+                text-decoration: none;
+                color: #000;
+            }
+            .footer-top a:hover {
+                text-decoration: underline;
+            }
+            .footer-bottom {
+                
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding-top: 20px;
+                border-top: 1px solid #ccc;
+                font-size: 0.8em;
+                text-align: center;
+            }
+            .footer-bottom p {
+                margin: 0;
+            }
+            .social-links {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+
+            .social-links a {
+                display: inline-block;
+                margin-left: 10px;
+                color: #3BB77E;
+                text-decoration: none;
+                font-size: 25px; /* Increase the font size */
+            }
+
+            .social-links a:hover {
+                color: #339966;
+            }
+
+            /* Responsive Styles */
+            @media (max-width: 1024px) {
+                .faq-item button {
+                    font-size: 16px;
+                }
+            }
+            @media (max-width: 768px) {
+                .content {
+                    flex-direction: column;
+                }
+                .faq, .contact-form {
+                    flex: 1 1 100%;
+                }
+                .contact-form label {
+                    font-size: 14px;
+                }
+                .contact-form button {
+                    font-size: 16px;
+                }
+                .subscription {
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+                .subscription h2, .subscription form {
+                    flex: 1 1 100%;
+                }
+                .subscription form {
+                    justify-content: center;
+                    width: 100%;
+                }
+                .subscription input, .subscription button {
+                    width: 100%;
+                    max-width: none;
+                }
+            }
+            @media (max-width: 480px) {
+                .faq-item button {
+                    font-size: 14px;
+                    padding: 8px;
+                }
+                .contact-form input, .contact-form textarea {
+                    font-size: 14px;
+                }
+                .contact-form button {
+                    font-size: 16px;
+                    padding: 8px;
+                }
+                .subscription input, .subscription button {
+                    font-size: 14px;
+                    padding: 8px;
+                }
+                .payment-icons {
+                    display: flex;
+                    justify-content: center;
+                    flex-grow: 1;
+                }
+             
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="logo">
+                <img src="images/logo.png" alt="Grocery Mart Logo"> <!-- Replace with actual logo URL -->
+
+              <a href="index.html"></a>
+                
+            </div>
+            <div class="search-bar-container">
+                <div class="search-bar">
+                    <select>
+                        <option>All Categories</option>
+                        <option>Category 1</option>
+                        <option>Category 2</option>
+                        <option>Category 3</option>
+                        <option>more
+                          <a href="index.html" target="index.html">
+                        </option>
+                        <!-- Add more categories here -->
+                    </select>
+                    <input type="text" placeholder="Search for items...">
+                </div>
+                <div class="search-icon">
+                    <img src="images/Search-btn.png" alt="Search Icon"> <!-- Replace with actual search icon URL -->
+                </div>
+            </div>
+              <div class="icons">
+                <a href="wishlist.html">
+                    <img src="images/Wishlist-1.png" alt="Wishlist Icon"> <!-- Replace with actual wishlist icon URL -->
+                </a>
+                <a href="cart.html">
+                    <img src="images/Cart-1.png" alt="Cart Icon"> <!-- Replace with actual cart icon URL -->
+                </a>
+                <a href="profile.html" class="profile-icon">
+                    <img src="images/Profile.png" alt="Profile Icon"> <!-- Replace with actual profile icon URL -->
+                </a>
+              </div>   
+
+            </div>
+        </div>
+        
+            <div class="background">
+                <div class="breadcrumbs">Home / Support</div>
+                <div class="title">Support</div>
+            </div>
+        
+        <div class="container">
+            <div class="content">
+                <div class="faq">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <button>What is your return policy? <i class="fas fa-plus"></i></button>
+                        <div class="answer">
+                            <p>You can return any item within 30 days of purchase.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button>How do I track my order? <i class="fas fa-plus"></i></button>
+                        <div class="answer">
+                            <p>You can track your order using the tracking link sent to your email.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button>What payment methods do you accept? <i class="fas fa-plus"></i></button>
+                        <div class="answer">
+                            <p>We accept Visa, MasterCard, and PayPal.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h2>Have Any Questions?</h2>
+                    <form action="#" method="post">
+                        <label for="name">Name*</label>
+                        <input type="text" id="name" name="name" required>
+                        
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" name="email" required>
+                        
+                        <label for="query">Reason for query*</label>
+                        <input type="text" id="query" name="query" required>
+                        
+                        <label for="message">Message*</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                        
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+                <div class="subscription">
+                  <h2>Subscribe to our Newsletter</h2>
+                  <form action="#" method="post">
+                      <input type="email" name="email" placeholder="Your Email Address" required>
+                      <button type="submit">Subscribe</button>
+                  </form>
+                </div>
+                <div class="feature-container">
+                  <div class="feature">
+                      <img src="images/Best Prices & Deals.png" alt="Deals">
+                      <div>
+                          <h3>Best Prices & Deals</h3>
+                          <p>Don't miss our daily amazing deals and prices</p>
+                      </div>
+                  </div>
+                  <div class="feature">
+                      <img src="images/Refundable.png" alt="Refund">
+                      <div>
+                          <h3>Refundable</h3>
+                          <p>If your items have damage we agree to refund it</p>
+                      </div>
+                  </div>
+                  <div class="feature">
+                      <img src="images/Free delivery.png" alt="Free Delivery">
+                      <div>
+                          <h3>Free Delivery</h3>
+                          <p>Do purchase over $50 and get free delivery anywhere</p>
+                      </div>
+                  </div>
+                </div>
+                </div>
+        
+        <footer>
+            <div class="footer-top">
+                <div>
+                    <h4>Drop It</h4>
+                    <img src="images/logo.png" alt="Logo" style="width: 30px; height: 30px;">
+                    <ul>
+                        <li><a href="#">Company Information</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Store Locations</a></li>
+                        <li><a href="#">Affiliate Program</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Shipping & Delivery</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Best Sellers</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Help Center</h4>
+                    <ul>
+                        <li><a href="#">Payments</a></li>
+                        <li><a href="#">Refund</a></li>
+                        <li><a href="#">Checkout</a></li>
+                        <li><a href="#">Q&A</a></li>
+                        <li><a href="#">Privacy Policy</a></li>                
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div style="display: flex; align-items: center;">
+                    <p>&copy; 2024 Grocery Mart. All rights reserved. | <a href="#">Privacy Policy</a></p>
+                     
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </footer>
+        <script>
+            document.querySelectorAll('.faq-item button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const answer = button.nextElementSibling;
+                    if (answer.style.display === 'block') {
+                        answer.style.display = 'none';
+                        button.querySelector('i').classList.replace('fa-minus', 'fa-plus');
+                    } else {
+                        answer.style.display = 'block';
+                        button.querySelector('i').classList.replace('fa-plus', 'fa-minus');
+                    }
+                });
+            });
+        </script>
+    </body>
+    </html>
+    
